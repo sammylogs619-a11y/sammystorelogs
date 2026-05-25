@@ -7,6 +7,8 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { Toaster } from "sonner";
+import { ContactDeveloperFAB } from "@/components/contact-developer-fab";
 
 import appCss from "../styles.css?url";
 
@@ -72,14 +74,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Sammy Store" },
+      { name: "description", content: "Sammy's Smart Store is a web application for managing and displaying product inventory." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Sammy Store" },
+      { property: "og:description", content: "Sammy's Smart Store is a web application for managing and displaying product inventory." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Sammy Store" },
+      { name: "twitter:description", content: "Sammy's Smart Store is a web application for managing and displaying product inventory." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/59fe0e96-6d9c-4b55-ac21-016baf596f98/id-preview-6139daa7--3c5325db-126d-455a-97c3-7858c91ff1f3.lovable.app-1778964993638.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/59fe0e96-6d9c-4b55-ac21-016baf596f98/id-preview-6139daa7--3c5325db-126d-455a-97c3-7858c91ff1f3.lovable.app-1778964993638.png" },
     ],
     links: [
       {
@@ -114,6 +120,16 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <Toaster
+        richColors
+        position="top-right"
+        toastOptions={{
+          classNames: {
+            toast: "animate-in slide-in-from-top-2 fade-in duration-500",
+          },
+        }}
+      />
+      <ContactDeveloperFAB />
     </QueryClientProvider>
   );
 }

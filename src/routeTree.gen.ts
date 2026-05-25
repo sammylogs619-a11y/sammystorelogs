@@ -9,38 +9,559 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SupportRouteImport } from './routes/support'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as SellerRouteImport } from './routes/seller'
+import { Route as ProductsRouteImport } from './routes/products'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ForSellersRouteImport } from './routes/for-sellers'
+import { Route as ForBuyersRouteImport } from './routes/for-buyers'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CategoriesRouteImport } from './routes/categories'
+import { Route as BecomeSellerRouteImport } from './routes/become-seller'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SellerIndexRouteImport } from './routes/seller.index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as SellerWithdrawalsRouteImport } from './routes/seller.withdrawals'
+import { Route as SellerProductsRouteImport } from './routes/seller.products'
+import { Route as SellerProductLoginsRouteImport } from './routes/seller.product-logins'
+import { Route as SellerOrdersRouteImport } from './routes/seller.orders'
+import { Route as DashboardWalletRouteImport } from './routes/dashboard.wallet'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
+import { Route as DashboardSellerRouteImport } from './routes/dashboard.seller'
+import { Route as DashboardOrdersRouteImport } from './routes/dashboard.orders'
+import { Route as DashboardCatalogRouteImport } from './routes/dashboard.catalog'
+import { Route as AdminWithdrawalsRouteImport } from './routes/admin.withdrawals'
+import { Route as AdminWalletFundingRouteImport } from './routes/admin.wallet-funding'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminTransactionsRouteImport } from './routes/admin.transactions'
+import { Route as AdminSuspendedRouteImport } from './routes/admin.suspended'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminSellersRouteImport } from './routes/admin.sellers'
+import { Route as AdminProductsRouteImport } from './routes/admin.products'
+import { Route as AdminProductLoginsRouteImport } from './routes/admin.product-logins'
+import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
+import { Route as AdminCouponsRouteImport } from './routes/admin.coupons'
+import { Route as ApiPublicNowpaymentsWebhookRouteImport } from './routes/api/public/nowpayments-webhook'
+import { Route as ApiPublicMonnifyWebhookRouteImport } from './routes/api/public/monnify-webhook'
 
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerRoute = SellerRouteImport.update({
+  id: '/seller',
+  path: '/seller',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForSellersRoute = ForSellersRouteImport.update({
+  id: '/for-sellers',
+  path: '/for-sellers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForBuyersRoute = ForBuyersRouteImport.update({
+  id: '/for-buyers',
+  path: '/for-buyers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoriesRoute = CategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BecomeSellerRoute = BecomeSellerRouteImport.update({
+  id: '/become-seller',
+  path: '/become-seller',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SellerIndexRoute = SellerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SellerRoute,
+} as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const SellerWithdrawalsRoute = SellerWithdrawalsRouteImport.update({
+  id: '/withdrawals',
+  path: '/withdrawals',
+  getParentRoute: () => SellerRoute,
+} as any)
+const SellerProductsRoute = SellerProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => SellerRoute,
+} as any)
+const SellerProductLoginsRoute = SellerProductLoginsRouteImport.update({
+  id: '/product-logins',
+  path: '/product-logins',
+  getParentRoute: () => SellerRoute,
+} as any)
+const SellerOrdersRoute = SellerOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => SellerRoute,
+} as any)
+const DashboardWalletRoute = DashboardWalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSellerRoute = DashboardSellerRouteImport.update({
+  id: '/seller',
+  path: '/seller',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardOrdersRoute = DashboardOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardCatalogRoute = DashboardCatalogRouteImport.update({
+  id: '/catalog',
+  path: '/catalog',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const AdminWithdrawalsRoute = AdminWithdrawalsRouteImport.update({
+  id: '/withdrawals',
+  path: '/withdrawals',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminWalletFundingRoute = AdminWalletFundingRouteImport.update({
+  id: '/wallet-funding',
+  path: '/wallet-funding',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTransactionsRoute = AdminTransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSuspendedRoute = AdminSuspendedRouteImport.update({
+  id: '/suspended',
+  path: '/suspended',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSellersRoute = AdminSellersRouteImport.update({
+  id: '/sellers',
+  path: '/sellers',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProductsRoute = AdminProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProductLoginsRoute = AdminProductLoginsRouteImport.update({
+  id: '/product-logins',
+  path: '/product-logins',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCouponsRoute = AdminCouponsRouteImport.update({
+  id: '/coupons',
+  path: '/coupons',
+  getParentRoute: () => AdminRoute,
+} as any)
+const ApiPublicNowpaymentsWebhookRoute =
+  ApiPublicNowpaymentsWebhookRouteImport.update({
+    id: '/api/public/nowpayments-webhook',
+    path: '/api/public/nowpayments-webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicMonnifyWebhookRoute = ApiPublicMonnifyWebhookRouteImport.update({
+  id: '/api/public/monnify-webhook',
+  path: '/api/public/monnify-webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/become-seller': typeof BecomeSellerRoute
+  '/categories': typeof CategoriesRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/for-buyers': typeof ForBuyersRoute
+  '/for-sellers': typeof ForSellersRoute
+  '/login': typeof LoginRoute
+  '/products': typeof ProductsRoute
+  '/seller': typeof SellerRouteWithChildren
+  '/signup': typeof SignupRoute
+  '/support': typeof SupportRoute
+  '/admin/coupons': typeof AdminCouponsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/product-logins': typeof AdminProductLoginsRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/sellers': typeof AdminSellersRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/suspended': typeof AdminSuspendedRoute
+  '/admin/transactions': typeof AdminTransactionsRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/admin/wallet-funding': typeof AdminWalletFundingRoute
+  '/admin/withdrawals': typeof AdminWithdrawalsRoute
+  '/dashboard/catalog': typeof DashboardCatalogRoute
+  '/dashboard/orders': typeof DashboardOrdersRoute
+  '/dashboard/seller': typeof DashboardSellerRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/wallet': typeof DashboardWalletRoute
+  '/seller/orders': typeof SellerOrdersRoute
+  '/seller/product-logins': typeof SellerProductLoginsRoute
+  '/seller/products': typeof SellerProductsRoute
+  '/seller/withdrawals': typeof SellerWithdrawalsRoute
+  '/admin/': typeof AdminIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/seller/': typeof SellerIndexRoute
+  '/api/public/monnify-webhook': typeof ApiPublicMonnifyWebhookRoute
+  '/api/public/nowpayments-webhook': typeof ApiPublicNowpaymentsWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/become-seller': typeof BecomeSellerRoute
+  '/categories': typeof CategoriesRoute
+  '/for-buyers': typeof ForBuyersRoute
+  '/for-sellers': typeof ForSellersRoute
+  '/login': typeof LoginRoute
+  '/products': typeof ProductsRoute
+  '/signup': typeof SignupRoute
+  '/support': typeof SupportRoute
+  '/admin/coupons': typeof AdminCouponsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/product-logins': typeof AdminProductLoginsRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/sellers': typeof AdminSellersRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/suspended': typeof AdminSuspendedRoute
+  '/admin/transactions': typeof AdminTransactionsRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/admin/wallet-funding': typeof AdminWalletFundingRoute
+  '/admin/withdrawals': typeof AdminWithdrawalsRoute
+  '/dashboard/catalog': typeof DashboardCatalogRoute
+  '/dashboard/orders': typeof DashboardOrdersRoute
+  '/dashboard/seller': typeof DashboardSellerRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/wallet': typeof DashboardWalletRoute
+  '/seller/orders': typeof SellerOrdersRoute
+  '/seller/product-logins': typeof SellerProductLoginsRoute
+  '/seller/products': typeof SellerProductsRoute
+  '/seller/withdrawals': typeof SellerWithdrawalsRoute
+  '/admin': typeof AdminIndexRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/seller': typeof SellerIndexRoute
+  '/api/public/monnify-webhook': typeof ApiPublicMonnifyWebhookRoute
+  '/api/public/nowpayments-webhook': typeof ApiPublicNowpaymentsWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/become-seller': typeof BecomeSellerRoute
+  '/categories': typeof CategoriesRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/for-buyers': typeof ForBuyersRoute
+  '/for-sellers': typeof ForSellersRoute
+  '/login': typeof LoginRoute
+  '/products': typeof ProductsRoute
+  '/seller': typeof SellerRouteWithChildren
+  '/signup': typeof SignupRoute
+  '/support': typeof SupportRoute
+  '/admin/coupons': typeof AdminCouponsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/product-logins': typeof AdminProductLoginsRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/sellers': typeof AdminSellersRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/suspended': typeof AdminSuspendedRoute
+  '/admin/transactions': typeof AdminTransactionsRoute
+  '/admin/users': typeof AdminUsersRoute
+  '/admin/wallet-funding': typeof AdminWalletFundingRoute
+  '/admin/withdrawals': typeof AdminWithdrawalsRoute
+  '/dashboard/catalog': typeof DashboardCatalogRoute
+  '/dashboard/orders': typeof DashboardOrdersRoute
+  '/dashboard/seller': typeof DashboardSellerRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/wallet': typeof DashboardWalletRoute
+  '/seller/orders': typeof SellerOrdersRoute
+  '/seller/product-logins': typeof SellerProductLoginsRoute
+  '/seller/products': typeof SellerProductsRoute
+  '/seller/withdrawals': typeof SellerWithdrawalsRoute
+  '/admin/': typeof AdminIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/seller/': typeof SellerIndexRoute
+  '/api/public/monnify-webhook': typeof ApiPublicMonnifyWebhookRoute
+  '/api/public/nowpayments-webhook': typeof ApiPublicNowpaymentsWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/become-seller'
+    | '/categories'
+    | '/dashboard'
+    | '/for-buyers'
+    | '/for-sellers'
+    | '/login'
+    | '/products'
+    | '/seller'
+    | '/signup'
+    | '/support'
+    | '/admin/coupons'
+    | '/admin/notifications'
+    | '/admin/product-logins'
+    | '/admin/products'
+    | '/admin/sellers'
+    | '/admin/settings'
+    | '/admin/suspended'
+    | '/admin/transactions'
+    | '/admin/users'
+    | '/admin/wallet-funding'
+    | '/admin/withdrawals'
+    | '/dashboard/catalog'
+    | '/dashboard/orders'
+    | '/dashboard/seller'
+    | '/dashboard/settings'
+    | '/dashboard/wallet'
+    | '/seller/orders'
+    | '/seller/product-logins'
+    | '/seller/products'
+    | '/seller/withdrawals'
+    | '/admin/'
+    | '/dashboard/'
+    | '/seller/'
+    | '/api/public/monnify-webhook'
+    | '/api/public/nowpayments-webhook'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/become-seller'
+    | '/categories'
+    | '/for-buyers'
+    | '/for-sellers'
+    | '/login'
+    | '/products'
+    | '/signup'
+    | '/support'
+    | '/admin/coupons'
+    | '/admin/notifications'
+    | '/admin/product-logins'
+    | '/admin/products'
+    | '/admin/sellers'
+    | '/admin/settings'
+    | '/admin/suspended'
+    | '/admin/transactions'
+    | '/admin/users'
+    | '/admin/wallet-funding'
+    | '/admin/withdrawals'
+    | '/dashboard/catalog'
+    | '/dashboard/orders'
+    | '/dashboard/seller'
+    | '/dashboard/settings'
+    | '/dashboard/wallet'
+    | '/seller/orders'
+    | '/seller/product-logins'
+    | '/seller/products'
+    | '/seller/withdrawals'
+    | '/admin'
+    | '/dashboard'
+    | '/seller'
+    | '/api/public/monnify-webhook'
+    | '/api/public/nowpayments-webhook'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/become-seller'
+    | '/categories'
+    | '/dashboard'
+    | '/for-buyers'
+    | '/for-sellers'
+    | '/login'
+    | '/products'
+    | '/seller'
+    | '/signup'
+    | '/support'
+    | '/admin/coupons'
+    | '/admin/notifications'
+    | '/admin/product-logins'
+    | '/admin/products'
+    | '/admin/sellers'
+    | '/admin/settings'
+    | '/admin/suspended'
+    | '/admin/transactions'
+    | '/admin/users'
+    | '/admin/wallet-funding'
+    | '/admin/withdrawals'
+    | '/dashboard/catalog'
+    | '/dashboard/orders'
+    | '/dashboard/seller'
+    | '/dashboard/settings'
+    | '/dashboard/wallet'
+    | '/seller/orders'
+    | '/seller/product-logins'
+    | '/seller/products'
+    | '/seller/withdrawals'
+    | '/admin/'
+    | '/dashboard/'
+    | '/seller/'
+    | '/api/public/monnify-webhook'
+    | '/api/public/nowpayments-webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  BecomeSellerRoute: typeof BecomeSellerRoute
+  CategoriesRoute: typeof CategoriesRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
+  ForBuyersRoute: typeof ForBuyersRoute
+  ForSellersRoute: typeof ForSellersRoute
+  LoginRoute: typeof LoginRoute
+  ProductsRoute: typeof ProductsRoute
+  SellerRoute: typeof SellerRouteWithChildren
+  SignupRoute: typeof SignupRoute
+  SupportRoute: typeof SupportRoute
+  ApiPublicMonnifyWebhookRoute: typeof ApiPublicMonnifyWebhookRoute
+  ApiPublicNowpaymentsWebhookRoute: typeof ApiPublicNowpaymentsWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller': {
+      id: '/seller'
+      path: '/seller'
+      fullPath: '/seller'
+      preLoaderRoute: typeof SellerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-sellers': {
+      id: '/for-sellers'
+      path: '/for-sellers'
+      fullPath: '/for-sellers'
+      preLoaderRoute: typeof ForSellersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-buyers': {
+      id: '/for-buyers'
+      path: '/for-buyers'
+      fullPath: '/for-buyers'
+      preLoaderRoute: typeof ForBuyersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/categories': {
+      id: '/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/become-seller': {
+      id: '/become-seller'
+      path: '/become-seller'
+      fullPath: '/become-seller'
+      preLoaderRoute: typeof BecomeSellerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +569,273 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/seller/': {
+      id: '/seller/'
+      path: '/'
+      fullPath: '/seller/'
+      preLoaderRoute: typeof SellerIndexRouteImport
+      parentRoute: typeof SellerRoute
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/seller/withdrawals': {
+      id: '/seller/withdrawals'
+      path: '/withdrawals'
+      fullPath: '/seller/withdrawals'
+      preLoaderRoute: typeof SellerWithdrawalsRouteImport
+      parentRoute: typeof SellerRoute
+    }
+    '/seller/products': {
+      id: '/seller/products'
+      path: '/products'
+      fullPath: '/seller/products'
+      preLoaderRoute: typeof SellerProductsRouteImport
+      parentRoute: typeof SellerRoute
+    }
+    '/seller/product-logins': {
+      id: '/seller/product-logins'
+      path: '/product-logins'
+      fullPath: '/seller/product-logins'
+      preLoaderRoute: typeof SellerProductLoginsRouteImport
+      parentRoute: typeof SellerRoute
+    }
+    '/seller/orders': {
+      id: '/seller/orders'
+      path: '/orders'
+      fullPath: '/seller/orders'
+      preLoaderRoute: typeof SellerOrdersRouteImport
+      parentRoute: typeof SellerRoute
+    }
+    '/dashboard/wallet': {
+      id: '/dashboard/wallet'
+      path: '/wallet'
+      fullPath: '/dashboard/wallet'
+      preLoaderRoute: typeof DashboardWalletRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/seller': {
+      id: '/dashboard/seller'
+      path: '/seller'
+      fullPath: '/dashboard/seller'
+      preLoaderRoute: typeof DashboardSellerRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/orders': {
+      id: '/dashboard/orders'
+      path: '/orders'
+      fullPath: '/dashboard/orders'
+      preLoaderRoute: typeof DashboardOrdersRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/catalog': {
+      id: '/dashboard/catalog'
+      path: '/catalog'
+      fullPath: '/dashboard/catalog'
+      preLoaderRoute: typeof DashboardCatalogRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/admin/withdrawals': {
+      id: '/admin/withdrawals'
+      path: '/withdrawals'
+      fullPath: '/admin/withdrawals'
+      preLoaderRoute: typeof AdminWithdrawalsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/wallet-funding': {
+      id: '/admin/wallet-funding'
+      path: '/wallet-funding'
+      fullPath: '/admin/wallet-funding'
+      preLoaderRoute: typeof AdminWalletFundingRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/transactions': {
+      id: '/admin/transactions'
+      path: '/transactions'
+      fullPath: '/admin/transactions'
+      preLoaderRoute: typeof AdminTransactionsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/suspended': {
+      id: '/admin/suspended'
+      path: '/suspended'
+      fullPath: '/admin/suspended'
+      preLoaderRoute: typeof AdminSuspendedRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/sellers': {
+      id: '/admin/sellers'
+      path: '/sellers'
+      fullPath: '/admin/sellers'
+      preLoaderRoute: typeof AdminSellersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/products': {
+      id: '/admin/products'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminProductsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/product-logins': {
+      id: '/admin/product-logins'
+      path: '/product-logins'
+      fullPath: '/admin/product-logins'
+      preLoaderRoute: typeof AdminProductLoginsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/notifications': {
+      id: '/admin/notifications'
+      path: '/notifications'
+      fullPath: '/admin/notifications'
+      preLoaderRoute: typeof AdminNotificationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/coupons': {
+      id: '/admin/coupons'
+      path: '/coupons'
+      fullPath: '/admin/coupons'
+      preLoaderRoute: typeof AdminCouponsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/api/public/nowpayments-webhook': {
+      id: '/api/public/nowpayments-webhook'
+      path: '/api/public/nowpayments-webhook'
+      fullPath: '/api/public/nowpayments-webhook'
+      preLoaderRoute: typeof ApiPublicNowpaymentsWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/monnify-webhook': {
+      id: '/api/public/monnify-webhook'
+      path: '/api/public/monnify-webhook'
+      fullPath: '/api/public/monnify-webhook'
+      preLoaderRoute: typeof ApiPublicMonnifyWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminCouponsRoute: typeof AdminCouponsRoute
+  AdminNotificationsRoute: typeof AdminNotificationsRoute
+  AdminProductLoginsRoute: typeof AdminProductLoginsRoute
+  AdminProductsRoute: typeof AdminProductsRoute
+  AdminSellersRoute: typeof AdminSellersRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminSuspendedRoute: typeof AdminSuspendedRoute
+  AdminTransactionsRoute: typeof AdminTransactionsRoute
+  AdminUsersRoute: typeof AdminUsersRoute
+  AdminWalletFundingRoute: typeof AdminWalletFundingRoute
+  AdminWithdrawalsRoute: typeof AdminWithdrawalsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminCouponsRoute: AdminCouponsRoute,
+  AdminNotificationsRoute: AdminNotificationsRoute,
+  AdminProductLoginsRoute: AdminProductLoginsRoute,
+  AdminProductsRoute: AdminProductsRoute,
+  AdminSellersRoute: AdminSellersRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminSuspendedRoute: AdminSuspendedRoute,
+  AdminTransactionsRoute: AdminTransactionsRoute,
+  AdminUsersRoute: AdminUsersRoute,
+  AdminWalletFundingRoute: AdminWalletFundingRoute,
+  AdminWithdrawalsRoute: AdminWithdrawalsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface DashboardRouteChildren {
+  DashboardCatalogRoute: typeof DashboardCatalogRoute
+  DashboardOrdersRoute: typeof DashboardOrdersRoute
+  DashboardSellerRoute: typeof DashboardSellerRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardWalletRoute: typeof DashboardWalletRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardCatalogRoute: DashboardCatalogRoute,
+  DashboardOrdersRoute: DashboardOrdersRoute,
+  DashboardSellerRoute: DashboardSellerRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardWalletRoute: DashboardWalletRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
+interface SellerRouteChildren {
+  SellerOrdersRoute: typeof SellerOrdersRoute
+  SellerProductLoginsRoute: typeof SellerProductLoginsRoute
+  SellerProductsRoute: typeof SellerProductsRoute
+  SellerWithdrawalsRoute: typeof SellerWithdrawalsRoute
+  SellerIndexRoute: typeof SellerIndexRoute
+}
+
+const SellerRouteChildren: SellerRouteChildren = {
+  SellerOrdersRoute: SellerOrdersRoute,
+  SellerProductLoginsRoute: SellerProductLoginsRoute,
+  SellerProductsRoute: SellerProductsRoute,
+  SellerWithdrawalsRoute: SellerWithdrawalsRoute,
+  SellerIndexRoute: SellerIndexRoute,
+}
+
+const SellerRouteWithChildren =
+  SellerRoute._addFileChildren(SellerRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  BecomeSellerRoute: BecomeSellerRoute,
+  CategoriesRoute: CategoriesRoute,
+  DashboardRoute: DashboardRouteWithChildren,
+  ForBuyersRoute: ForBuyersRoute,
+  ForSellersRoute: ForSellersRoute,
+  LoginRoute: LoginRoute,
+  ProductsRoute: ProductsRoute,
+  SellerRoute: SellerRouteWithChildren,
+  SignupRoute: SignupRoute,
+  SupportRoute: SupportRoute,
+  ApiPublicMonnifyWebhookRoute: ApiPublicMonnifyWebhookRoute,
+  ApiPublicNowpaymentsWebhookRoute: ApiPublicNowpaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
