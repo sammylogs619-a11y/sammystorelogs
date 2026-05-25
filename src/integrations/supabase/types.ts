@@ -466,6 +466,30 @@ export type Database = {
         }
         Relationships: []
       }
+      support_chats: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          role: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -578,6 +602,28 @@ export type Database = {
       admin_adjust_wallet: {
         Args: { _amount: number; _description: string; _user_id: string }
         Returns: number
+      }
+      admin_set_seller_status: {
+        Args: {
+          _seller_id: string
+          _status: Database["public"]["Enums"]["seller_status"]
+        }
+        Returns: {
+          balance: number
+          business_description: string | null
+          business_name: string
+          created_at: string
+          id: string
+          logo_url: string | null
+          status: Database["public"]["Enums"]["seller_status"]
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "sellers"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       admin_set_withdrawal_status: {
         Args: {
