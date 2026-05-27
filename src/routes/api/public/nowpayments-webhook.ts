@@ -72,8 +72,7 @@ export const Route = createFileRoute("/api/public/nowpayments-webhook")({
                 _raw: payload,
               };
 
-          // @ts-expect-error dynamic rpc name is correct per the lookup above
-          const { error } = await supabaseAdmin.rpc(rpc, args);
+          const { error } = await (supabaseAdmin.rpc as any)(rpc, args);
           if (error) {
             console.error(`NOWPayments ${rpc} error:`, error);
             return new Response(error.message, { status: 500 });
