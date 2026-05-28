@@ -54,16 +54,17 @@ export function AuthNav() {
       </div>
       <Link
         to={hasSeller ? "/seller" : "/dashboard"}
-        className="inline-flex items-center gap-1 rounded-md bg-brand-blue text-brand-blue-foreground px-3 py-1 text-sm hover:opacity-90"
+        className="hidden sm:inline-flex items-center gap-1 rounded-md bg-brand-blue text-brand-blue-foreground px-3 py-1 text-sm hover:opacity-90"
       >
         <LayoutDashboard className="h-4 w-4" /> Dashboard
       </Link>
       <button
         onClick={logout}
-        className="inline-flex items-center gap-1 rounded-md border px-3 py-1 text-sm hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 transition-colors"
+        className="hidden sm:inline-flex items-center gap-1 rounded-md border px-3 py-1 text-sm hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 transition-colors"
       >
         <LogOut className="h-4 w-4" /> Logout
       </button>
+      <HamburgerMenu />
     </div>
   );
 }
