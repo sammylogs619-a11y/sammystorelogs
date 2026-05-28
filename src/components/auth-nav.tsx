@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { LayoutDashboard, LogIn, LogOut, UserPlus } from "lucide-react";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
+import { HamburgerMenu } from "@/components/hamburger-menu";
 
 /** Header auth area: shows Sign in/Sign up when logged out, avatar + Dashboard + Logout when logged in. */
 export function AuthNav() {
@@ -31,12 +32,13 @@ export function AuthNav() {
   if (!user) {
     return (
       <div className="flex items-center gap-2">
-        <Link to="/login" className="inline-flex items-center gap-1 rounded-md px-3 py-1 text-sm hover:bg-background">
+        <Link to="/login" className="hidden sm:inline-flex items-center gap-1 rounded-md px-3 py-1 text-sm hover:bg-background">
           <LogIn className="h-4 w-4" /> Sign in
         </Link>
-        <Link to="/signup" className="inline-flex items-center gap-1 rounded-md bg-brand text-brand-foreground px-3 py-1 text-sm hover:opacity-90">
+        <Link to="/signup" className="hidden sm:inline-flex items-center gap-1 rounded-md bg-brand text-brand-foreground px-3 py-1 text-sm hover:opacity-90">
           <UserPlus className="h-4 w-4" /> Sign up
         </Link>
+        <HamburgerMenu />
       </div>
     );
   }
@@ -52,16 +54,17 @@ export function AuthNav() {
       </div>
       <Link
         to={hasSeller ? "/seller" : "/dashboard"}
-        className="inline-flex items-center gap-1 rounded-md bg-brand-blue text-brand-blue-foreground px-3 py-1 text-sm hover:opacity-90"
+        className="hidden sm:inline-flex items-center gap-1 rounded-md bg-brand-blue text-brand-blue-foreground px-3 py-1 text-sm hover:opacity-90"
       >
         <LayoutDashboard className="h-4 w-4" /> Dashboard
       </Link>
       <button
         onClick={logout}
-        className="inline-flex items-center gap-1 rounded-md border px-3 py-1 text-sm hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 transition-colors"
+        className="hidden sm:inline-flex items-center gap-1 rounded-md border px-3 py-1 text-sm hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 transition-colors"
       >
         <LogOut className="h-4 w-4" /> Logout
       </button>
+      <HamburgerMenu />
     </div>
   );
 }
