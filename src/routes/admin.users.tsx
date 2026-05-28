@@ -55,45 +55,75 @@ function UsersPage() {
       ) : items.length === 0 ? (
         <EmptyState icon={Users} title="No users found" description="Try a different search." />
       ) : (
-        <div className="rounded-xl border bg-card overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-muted/50 text-xs uppercase text-muted-foreground">
-                <tr>
-                  <th className="text-left p-3">User</th>
-                  <th className="text-right p-3">Balance</th>
-                  <th className="text-left p-3 hidden md:table-cell">Status</th>
-                  <th className="text-right p-3">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {items.map((u) => (
-                  <tr key={u.id} className="border-t">
-                    <td className="p-3">
-                      <div className="font-medium">{u.username}</div>
-                      <div className="text-xs text-muted-foreground">{u.email}</div>
-                    </td>
-                    <td className="p-3 text-right font-semibold">₦{Number(u.balance).toLocaleString()}</td>
-                    <td className="p-3 hidden md:table-cell">
+        <>
+          {/* Mobile card list */}
+          <ul className="sm:hidden space-y-2">
+            {items.map((u) => (
+              <li key={u.id} className="rounded-xl border bg-card p-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="font-medium truncate">{u.username}</div>
+                    <div className="text-xs text-muted-foreground truncate">{u.email}</div>
+                    <div className="mt-1">
                       {u.is_suspended
-                        ? <span className="text-xs rounded-md bg-rose-100 text-rose-700 px-2 py-0.5">Suspended</span>
-                        : <span className="text-xs rounded-md bg-emerald-100 text-emerald-700 px-2 py-0.5">Active</span>}
-                    </td>
-                    <td className="p-3">
-                      <div className="flex justify-end gap-2">
-                        <button onClick={() => setAdjust(u)} className="rounded-md border px-2 py-1 text-xs hover:bg-muted">Adjust ₦</button>
-                        <button onClick={() => toggleSuspend(u)}
-                          className={`grid h-8 w-8 place-items-center rounded-md ${u.is_suspended ? "hover:bg-emerald-100 text-emerald-700" : "hover:bg-rose-100 text-rose-700"}`}>
-                          {u.is_suspended ? <RotateCcw className="h-4 w-4" /> : <Ban className="h-4 w-4" />}
-                        </button>
-                      </div>
-                    </td>
+                        ? <span className="text-[10px] rounded-md bg-rose-100 text-rose-700 px-1.5 py-0.5">Suspended</span>
+                        : <span className="text-[10px] rounded-md bg-emerald-100 text-emerald-700 px-1.5 py-0.5">Active</span>}
+                    </div>
+                  </div>
+                  <div className="text-right shrink-0 text-sm font-semibold">₦{Number(u.balance).toLocaleString()}</div>
+                </div>
+                <div className="mt-3 flex gap-2">
+                  <button onClick={() => setAdjust(u)} className="flex-1 rounded-md border px-2 py-1.5 text-xs hover:bg-muted">Adjust ₦</button>
+                  <button onClick={() => toggleSuspend(u)}
+                    className={`grid h-9 w-9 place-items-center rounded-md border ${u.is_suspended ? "hover:bg-emerald-100 text-emerald-700" : "hover:bg-rose-100 text-rose-700"}`}>
+                    {u.is_suspended ? <RotateCcw className="h-4 w-4" /> : <Ban className="h-4 w-4" />}
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          {/* Desktop table */}
+          <div className="hidden sm:block rounded-xl border bg-card overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-muted/50 text-xs uppercase text-muted-foreground">
+                  <tr>
+                    <th className="text-left p-3">User</th>
+                    <th className="text-right p-3">Balance</th>
+                    <th className="text-left p-3 hidden md:table-cell">Status</th>
+                    <th className="text-right p-3">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {items.map((u) => (
+                    <tr key={u.id} className="border-t">
+                      <td className="p-3">
+                        <div className="font-medium">{u.username}</div>
+                        <div className="text-xs text-muted-foreground">{u.email}</div>
+                      </td>
+                      <td className="p-3 text-right font-semibold">₦{Number(u.balance).toLocaleString()}</td>
+                      <td className="p-3 hidden md:table-cell">
+                        {u.is_suspended
+                          ? <span className="text-xs rounded-md bg-rose-100 text-rose-700 px-2 py-0.5">Suspended</span>
+                          : <span className="text-xs rounded-md bg-emerald-100 text-emerald-700 px-2 py-0.5">Active</span>}
+                      </td>
+                      <td className="p-3">
+                        <div className="flex justify-end gap-2">
+                          <button onClick={() => setAdjust(u)} className="rounded-md border px-2 py-1 text-xs hover:bg-muted">Adjust ₦</button>
+                          <button onClick={() => toggleSuspend(u)}
+                            className={`grid h-8 w-8 place-items-center rounded-md ${u.is_suspended ? "hover:bg-emerald-100 text-emerald-700" : "hover:bg-rose-100 text-rose-700"}`}>
+                            {u.is_suspended ? <RotateCcw className="h-4 w-4" /> : <Ban className="h-4 w-4" />}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        </>
       )}
 
       {adjust && <AdjustModal user={adjust} onClose={() => setAdjust(null)} onSaved={() => { setAdjust(null); load(); }} />}

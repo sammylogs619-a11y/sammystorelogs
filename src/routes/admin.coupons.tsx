@@ -58,45 +58,74 @@ function CouponsPage() {
         <EmptyState icon={Ticket} title="No coupons created"
           description="Create promo coupons to give away credit or discounts." />
       ) : (
-        <div className="rounded-xl border bg-card overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-muted/50 text-xs uppercase text-muted-foreground">
-                <tr>
-                  <th className="text-left p-3">Code</th>
-                  <th className="text-left p-3">Discount</th>
-                  <th className="text-left p-3 hidden md:table-cell">Scope</th>
-                  <th className="text-right p-3">Uses</th>
-                  <th className="text-left p-3 hidden md:table-cell">Expires</th>
-                  <th className="text-right p-3">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {items.map((c) => (
-                  <tr key={c.id} className="border-t">
-                    <td className="p-3 font-mono font-semibold">{c.code}</td>
-                    <td className="p-3">{c.kind === "percent" ? `${c.value}%` : `₦${Number(c.value).toLocaleString()}`}</td>
-                    <td className="p-3 hidden md:table-cell capitalize">{c.scope}</td>
-                    <td className="p-3 text-right">{c.uses_count}{c.max_uses != null ? `/${c.max_uses}` : ""}</td>
-                    <td className="p-3 hidden md:table-cell text-muted-foreground">
-                      {c.expires_at ? new Date(c.expires_at).toLocaleDateString() : "—"}
-                    </td>
-                    <td className="p-3">
-                      <div className="flex justify-end gap-2">
-                        <button onClick={() => toggle(c)} className={`rounded-md px-2 py-1 text-xs ${c.is_active ? "bg-emerald-100 text-emerald-700" : "bg-muted text-muted-foreground"}`}>
-                          {c.is_active ? "Active" : "Paused"}
-                        </button>
-                        <button onClick={() => del(c.id)} className="grid h-8 w-8 place-items-center rounded-md hover:bg-destructive/10 text-destructive">
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                    </td>
+        <>
+          {/* Mobile card list */}
+          <ul className="sm:hidden space-y-2">
+            {items.map((c) => (
+              <li key={c.id} className="rounded-xl border bg-card p-3">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <div className="font-mono font-semibold truncate">{c.code}</div>
+                    <div className="text-xs text-muted-foreground capitalize">
+                      {c.kind === "percent" ? `${c.value}%` : `₦${Number(c.value).toLocaleString()}`} · {c.scope}
+                    </div>
+                  </div>
+                  <button onClick={() => toggle(c)} className={`shrink-0 rounded-md px-2 py-1 text-[10px] ${c.is_active ? "bg-emerald-100 text-emerald-700" : "bg-muted text-muted-foreground"}`}>
+                    {c.is_active ? "Active" : "Paused"}
+                  </button>
+                </div>
+                <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
+                  <span>Uses {c.uses_count}{c.max_uses != null ? `/${c.max_uses}` : ""}</span>
+                  <span>{c.expires_at ? `Exp ${new Date(c.expires_at).toLocaleDateString()}` : "No expiry"}</span>
+                  <button onClick={() => del(c.id)} className="grid h-8 w-8 place-items-center rounded-md hover:bg-destructive/10 text-destructive">
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          {/* Desktop table */}
+          <div className="hidden sm:block rounded-xl border bg-card overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-muted/50 text-xs uppercase text-muted-foreground">
+                  <tr>
+                    <th className="text-left p-3">Code</th>
+                    <th className="text-left p-3">Discount</th>
+                    <th className="text-left p-3 hidden md:table-cell">Scope</th>
+                    <th className="text-right p-3">Uses</th>
+                    <th className="text-left p-3 hidden md:table-cell">Expires</th>
+                    <th className="text-right p-3">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {items.map((c) => (
+                    <tr key={c.id} className="border-t">
+                      <td className="p-3 font-mono font-semibold">{c.code}</td>
+                      <td className="p-3">{c.kind === "percent" ? `${c.value}%` : `₦${Number(c.value).toLocaleString()}`}</td>
+                      <td className="p-3 hidden md:table-cell capitalize">{c.scope}</td>
+                      <td className="p-3 text-right">{c.uses_count}{c.max_uses != null ? `/${c.max_uses}` : ""}</td>
+                      <td className="p-3 hidden md:table-cell text-muted-foreground">
+                        {c.expires_at ? new Date(c.expires_at).toLocaleDateString() : "—"}
+                      </td>
+                      <td className="p-3">
+                        <div className="flex justify-end gap-2">
+                          <button onClick={() => toggle(c)} className={`rounded-md px-2 py-1 text-xs ${c.is_active ? "bg-emerald-100 text-emerald-700" : "bg-muted text-muted-foreground"}`}>
+                            {c.is_active ? "Active" : "Paused"}
+                          </button>
+                          <button onClick={() => del(c.id)} className="grid h-8 w-8 place-items-center rounded-md hover:bg-destructive/10 text-destructive">
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </AdminPage>
   );

@@ -44,42 +44,71 @@ function Page() {
         : items.length === 0
           ? <EmptyState icon={Wallet} title="No funding requests" description="Real payment sessions will appear here." />
           : (
-            <div className="rounded-xl border bg-card overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead className="bg-muted/50 text-xs uppercase text-muted-foreground">
-                    <tr>
-                      <th className="text-left p-3">Reference</th>
-                      <th className="text-left p-3 hidden sm:table-cell">Provider</th>
-                      <th className="text-right p-3">Paid</th>
-                      <th className="text-right p-3">Credited</th>
-                      <th className="text-left p-3">Status</th>
-                      <th className="text-left p-3 hidden md:table-cell">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {items.map((i) => (
-                      <tr key={i.id} className="border-t">
-                        <td className="p-3 font-mono text-xs">{i.provider_reference}</td>
-                        <td className="p-3 hidden sm:table-cell capitalize">{i.provider.replace("_", " ")}</td>
-                        <td className="p-3 text-right">₦{Number(i.amount_paid).toLocaleString()}</td>
-                        <td className="p-3 text-right font-semibold">₦{Number(i.credit_amount).toLocaleString()}</td>
-                        <td className="p-3">
-                          <span className={`rounded-md px-2 py-0.5 text-xs font-medium ${
-                            i.status === "paid" ? "bg-emerald-100 text-emerald-700"
-                              : i.status === "pending" ? "bg-amber-100 text-amber-700"
-                              : "bg-rose-100 text-rose-700"
-                          }`}>{i.status}</span>
-                        </td>
-                        <td className="p-3 hidden md:table-cell text-xs text-muted-foreground">
-                          {new Date(i.created_at).toLocaleString()}
-                        </td>
+            <>
+              {/* Mobile card list */}
+              <ul className="sm:hidden space-y-2">
+                {items.map((i) => (
+                  <li key={i.id} className="rounded-xl border bg-card p-3 space-y-2">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="font-mono text-[11px] break-all min-w-0">{i.provider_reference}</div>
+                      <span className={`shrink-0 rounded-md px-2 py-0.5 text-[10px] font-medium ${
+                        i.status === "paid" ? "bg-emerald-100 text-emerald-700"
+                          : i.status === "pending" ? "bg-amber-100 text-amber-700"
+                          : "bg-rose-100 text-rose-700"
+                      }`}>{i.status}</span>
+                    </div>
+                    <div className="flex items-end justify-between gap-3 text-sm">
+                      <div>
+                        <div className="text-[10px] uppercase text-muted-foreground">Paid → Credited</div>
+                        <div>₦{Number(i.amount_paid).toLocaleString()} → <span className="font-semibold">₦{Number(i.credit_amount).toLocaleString()}</span></div>
+                      </div>
+                      <div className="text-right text-[10px] text-muted-foreground">
+                        <div className="capitalize">{i.provider.replace("_", " ")}</div>
+                        <div>{new Date(i.created_at).toLocaleDateString()}</div>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Desktop table */}
+              <div className="hidden sm:block rounded-xl border bg-card overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead className="bg-muted/50 text-xs uppercase text-muted-foreground">
+                      <tr>
+                        <th className="text-left p-3">Reference</th>
+                        <th className="text-left p-3 hidden sm:table-cell">Provider</th>
+                        <th className="text-right p-3">Paid</th>
+                        <th className="text-right p-3">Credited</th>
+                        <th className="text-left p-3">Status</th>
+                        <th className="text-left p-3 hidden md:table-cell">Date</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {items.map((i) => (
+                        <tr key={i.id} className="border-t">
+                          <td className="p-3 font-mono text-xs">{i.provider_reference}</td>
+                          <td className="p-3 hidden sm:table-cell capitalize">{i.provider.replace("_", " ")}</td>
+                          <td className="p-3 text-right">₦{Number(i.amount_paid).toLocaleString()}</td>
+                          <td className="p-3 text-right font-semibold">₦{Number(i.credit_amount).toLocaleString()}</td>
+                          <td className="p-3">
+                            <span className={`rounded-md px-2 py-0.5 text-xs font-medium ${
+                              i.status === "paid" ? "bg-emerald-100 text-emerald-700"
+                                : i.status === "pending" ? "bg-amber-100 text-amber-700"
+                                : "bg-rose-100 text-rose-700"
+                            }`}>{i.status}</span>
+                          </td>
+                          <td className="p-3 hidden md:table-cell text-xs text-muted-foreground">
+                            {new Date(i.created_at).toLocaleString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
+            </>
           )}
     </AdminPage>
   );
