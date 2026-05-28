@@ -32,12 +32,13 @@ export function AuthNav() {
   if (!user) {
     return (
       <div className="flex items-center gap-2">
-        <Link to="/login" className="inline-flex items-center gap-1 rounded-md px-3 py-1 text-sm hover:bg-background">
+        <Link to="/login" className="hidden sm:inline-flex items-center gap-1 rounded-md px-3 py-1 text-sm hover:bg-background">
           <LogIn className="h-4 w-4" /> Sign in
         </Link>
-        <Link to="/signup" className="inline-flex items-center gap-1 rounded-md bg-brand text-brand-foreground px-3 py-1 text-sm hover:opacity-90">
+        <Link to="/signup" className="hidden sm:inline-flex items-center gap-1 rounded-md bg-brand text-brand-foreground px-3 py-1 text-sm hover:opacity-90">
           <UserPlus className="h-4 w-4" /> Sign up
         </Link>
+        <HamburgerMenu />
       </div>
     );
   }
