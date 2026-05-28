@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { LayoutDashboard, LogIn, LogOut, UserPlus } from "lucide-react";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
+import { HamburgerMenu } from "@/components/hamburger-menu";
 
 /** Header auth area: shows Sign in/Sign up when logged out, avatar + Dashboard + Logout when logged in. */
 export function AuthNav() {
