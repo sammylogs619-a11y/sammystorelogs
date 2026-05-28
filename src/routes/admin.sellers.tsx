@@ -86,6 +86,11 @@ function AdminSellers() {
                       : s.status === "declined" ? "bg-rose-100 text-rose-700"
                       : "bg-amber-100 text-amber-700"
                     }`}>{s.status}</span>
+                    {s.paid_registration_at ? (
+                      <span className="text-xs rounded-full px-2 py-0.5 bg-emerald-100 text-emerald-700" title={s.registration_payment_ref ?? undefined}>Fee paid</span>
+                    ) : (
+                      <span className="text-xs rounded-full px-2 py-0.5 bg-muted text-muted-foreground">Fee unpaid</span>
+                    )}
                     <span className="text-xs text-muted-foreground ml-auto">Balance: <strong>{formatNaira(s.balance)}</strong></span>
                   </div>
                   <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{s.business_description || "No description provided."}</p>
