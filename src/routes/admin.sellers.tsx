@@ -10,6 +10,8 @@ type Seller = {
   id: string; business_name: string; business_description: string | null;
   logo_url: string | null; balance: number; status: "pending" | "active" | "suspended" | "declined";
   created_at: string;
+  paid_registration_at: string | null;
+  registration_payment_ref: string | null;
 };
 
 const TABS: { key: "all" | Seller["status"]; label: string }[] = [
