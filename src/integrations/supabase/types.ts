@@ -771,51 +771,28 @@ export type Database = {
         }
         Returns: boolean
       }
-      purchase_product:
-        | {
-            Args: { _product_id: string }
-            Returns: {
-              created_at: string
-              delivered_credential: string
-              delivered_notes: string | null
-              delivered_password: string
-              id: string
-              login_id: string | null
-              price: number
-              product_id: string
-              product_name: string
-              status: string
-              user_id: string
-            }
-            SetofOptions: {
-              from: "*"
-              to: "orders"
-              isOneToOne: true
-              isSetofReturn: false
-            }
-          }
-        | {
-            Args: { _coupon_code?: string; _product_id: string }
-            Returns: {
-              created_at: string
-              delivered_credential: string
-              delivered_notes: string | null
-              delivered_password: string
-              id: string
-              login_id: string | null
-              price: number
-              product_id: string
-              product_name: string
-              status: string
-              user_id: string
-            }
-            SetofOptions: {
-              from: "*"
-              to: "orders"
-              isOneToOne: true
-              isSetofReturn: false
-            }
-          }
+      purchase_product: {
+        Args: { _coupon_code?: string; _product_id: string }
+        Returns: {
+          created_at: string
+          delivered_credential: string
+          delivered_notes: string | null
+          delivered_password: string
+          id: string
+          login_id: string | null
+          price: number
+          product_id: string
+          product_name: string
+          status: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "orders"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       quote_coupon: {
         Args: { _amount: number; _code: string; _context: string }
         Returns: Json
