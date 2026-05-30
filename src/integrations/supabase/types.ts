@@ -857,7 +857,7 @@ export type Database = {
       app_role: "admin" | "user"
       coupon_kind: "percent" | "fixed"
       coupon_scope: "funding" | "purchase" | "both"
-      payment_provider: "monnify" | "binance_pay" | "nowpayments"
+      payment_provider: "monnify" | "binance_pay" | "nowpayments" | "paystack"
       payment_status: "pending" | "paid" | "failed" | "expired" | "cancelled"
       seller_status: "pending" | "active" | "suspended" | "declined"
       seller_tx_type:
@@ -1004,7 +1004,7 @@ export const Constants = {
       app_role: ["admin", "user"],
       coupon_kind: ["percent", "fixed"],
       coupon_scope: ["funding", "purchase", "both"],
-      payment_provider: ["monnify", "binance_pay", "nowpayments"],
+      payment_provider: ["monnify", "binance_pay", "nowpayments", "paystack"],
       payment_status: ["pending", "paid", "failed", "expired", "cancelled"],
       seller_status: ["pending", "active", "suspended", "declined"],
       seller_tx_type: [

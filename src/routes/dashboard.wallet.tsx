@@ -1,16 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Wallet, Loader2, CheckCircle2 } from "lucide-react";
+import { Wallet, Loader2, CheckCircle2, CreditCard, Bitcoin } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
 import { initNowPaymentsFunding } from "@/lib/nowpayments.functions";
+import { initPaystackFunding, verifyPaystackFunding } from "@/lib/paystack.functions";
 import { toast } from "sonner";
 import { formatNaira } from "@/lib/utils";
 
 export const Route = createFileRoute("/dashboard/wallet")({ component: WalletPage });
 
 type Tx = { id: string; type: string; amount: number; balance_after: number; description: string | null; created_at: string };
+type Method = "paystack" | "nowpayments";
 
 const PAY_CURRENCIES = [
   { value: "usdttrc20", label: "USDT (TRC20)" },
@@ -25,12 +27,15 @@ function WalletPage() {
   const { user } = useAuth();
   const [balance, setBalance] = useState(0);
   const [amount, setAmount] = useState("");
+  const [method, setMethod] = useState<Method>("paystack");
   const [payCurrency, setPayCurrency] = useState("usdttrc20");
   const [coupon, setCoupon] = useState("");
   const [bonus, setBonus] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [history, setHistory] = useState<Tx[]>([]);
-  const init = useServerFn(initNowPaymentsFunding);
+  const initNP = useServerFn(initNowPaymentsFunding);
+  const initPS = useServerFn(initPaystackFunding);
+  const verifyPS = useServerFn(verifyPaystackFunding);
 
   async function load() {
     if (!user) return;
@@ -44,19 +49,31 @@ function WalletPage() {
   }
   useEffect(() => { load(); /* eslint-disable-next-line */ }, [user]);
 
-  // Handle return from NOWPayments checkout
+  // Handle return from payment checkout
   useEffect(() => {
     if (!user) return;
     const url = new URL(window.location.href);
     const npRef = url.searchParams.get("np_ref");
     const npCancel = url.searchParams.get("np_cancel");
-    if (!npRef && !npCancel) return;
-    if (npRef) toast.success("Payment received — wallet will be credited once confirmed on-chain.");
-    if (npCancel) toast.info("Payment cancelled");
-    url.searchParams.delete("np_ref");
-    url.searchParams.delete("np_cancel");
-    window.history.replaceState({}, "", url.toString());
-    load();
+    const psRef = url.searchParams.get("ps_ref") ?? url.searchParams.get("reference");
+    if (!npRef && !npCancel && !psRef) return;
+
+    (async () => {
+      if (npRef) toast.success("Payment received — wallet will be credited once confirmed on-chain.");
+      if (npCancel) toast.info("Payment cancelled");
+      if (psRef) {
+        try {
+          const r = await verifyPS({ data: { reference: psRef } });
+          if (r.credited) toast.success("Wallet funded successfully!");
+          else toast.info(`Payment status: ${r.status}`);
+        } catch (e: any) {
+          toast.error(e?.message ?? "Could not verify payment");
+        }
+      }
+      ["np_ref", "np_cancel", "ps_ref", "reference", "trxref"].forEach((k) => url.searchParams.delete(k));
+      window.history.replaceState({}, "", url.toString());
+      load();
+    })();
     // eslint-disable-next-line
   }, [user]);
 
@@ -76,10 +93,16 @@ function WalletPage() {
     if (!n || n < 100) return toast.error("Minimum amount ₦100");
     setLoading(true);
     try {
-      const r = await init({ data: { amount: n, payCurrency, couponCode: coupon.trim() || undefined } });
+      const payload = { amount: n, couponCode: coupon.trim() || undefined };
+      const r = method === "paystack"
+        ? await initPS({ data: payload })
+        : await initNP({ data: { ...payload, payCurrency } });
       window.location.href = r.checkoutUrl;
     } catch (e: any) {
-      toast.error(e?.message ?? "Payment init failed");
+      const msg = String(e?.message ?? "");
+      if (/minimal|minimum/i.test(msg))
+        toast.error("Selected cryptocurrency does not support this payment amount.");
+      else toast.error(msg || "Payment init failed");
       setLoading(false);
     }
   }
@@ -102,8 +125,37 @@ function WalletPage() {
       </div>
 
       <div className="rounded-2xl border bg-card p-6 space-y-4">
-        <h2 className="font-semibold">Add funds with crypto (NOWPayments)</h2>
-        <p className="text-xs text-muted-foreground">Pay with USDT, BTC, ETH and more. Funds reflect once the network confirms your transaction.</p>
+        <h2 className="font-semibold">Fund your wallet</h2>
+
+        <div>
+          <label className="text-xs font-medium text-muted-foreground">Select payment method</label>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            <button type="button" onClick={() => setMethod("paystack")}
+              className={`rounded-xl border-2 p-3 text-left transition-all ${method === "paystack" ? "border-primary bg-primary/5 shadow-sm" : "border-border hover:bg-muted"}`}>
+              <div className="flex items-center gap-2">
+                <div className="grid h-8 w-8 place-items-center rounded-lg bg-[#0BA4DB]/10">
+                  <CreditCard className="h-4 w-4 text-[#0BA4DB]" />
+                </div>
+                <div>
+                  <div className="text-sm font-semibold">Paystack</div>
+                  <div className="text-[10px] text-muted-foreground">Card · Bank · USSD</div>
+                </div>
+              </div>
+            </button>
+            <button type="button" onClick={() => setMethod("nowpayments")}
+              className={`rounded-xl border-2 p-3 text-left transition-all ${method === "nowpayments" ? "border-primary bg-primary/5 shadow-sm" : "border-border hover:bg-muted"}`}>
+              <div className="flex items-center gap-2">
+                <div className="grid h-8 w-8 place-items-center rounded-lg bg-amber-100">
+                  <Bitcoin className="h-4 w-4 text-amber-600" />
+                </div>
+                <div>
+                  <div className="text-sm font-semibold">NOWPayments</div>
+                  <div className="text-[10px] text-muted-foreground">USDT · BTC · ETH</div>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
 
         <div className="relative">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">₦</span>
@@ -111,13 +163,16 @@ function WalletPage() {
             placeholder="5000" className="w-full rounded-lg border bg-background pl-7 pr-3 py-2.5 outline-none focus:ring-2 focus:ring-primary/20" />
         </div>
 
-        <div>
-          <label className="text-xs font-medium text-muted-foreground">Pay with</label>
-          <select value={payCurrency} onChange={(e) => setPayCurrency(e.target.value)}
-            className="mt-1 w-full rounded-lg border bg-background px-3 py-2.5 text-sm">
-            {PAY_CURRENCIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
-          </select>
-        </div>
+        {method === "nowpayments" && (
+          <div>
+            <label className="text-xs font-medium text-muted-foreground">Pay with</label>
+            <select value={payCurrency} onChange={(e) => setPayCurrency(e.target.value)}
+              className="mt-1 w-full rounded-lg border bg-background px-3 py-2.5 text-sm">
+              {PAY_CURRENCIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
+            </select>
+            <p className="mt-1 text-[10px] text-muted-foreground">Note: some coins have minimum amounts. If you see a minimum error, increase the amount or switch coin.</p>
+          </div>
+        )}
 
         <div className="flex gap-2">
           <input value={coupon} onChange={(e) => { setCoupon(e.target.value.toUpperCase()); setBonus(null); }}
@@ -133,7 +188,7 @@ function WalletPage() {
         <button onClick={pay} disabled={loading}
           className="w-full rounded-lg bg-primary text-primary-foreground py-3 font-semibold disabled:opacity-50 inline-flex items-center justify-center gap-2">
           {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-          {loading ? "Redirecting…" : "Pay with crypto"}
+          {loading ? "Redirecting…" : method === "paystack" ? "Pay with Paystack" : "Pay with crypto"}
         </button>
       </div>
 
