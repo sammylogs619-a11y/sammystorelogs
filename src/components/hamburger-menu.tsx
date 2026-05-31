@@ -3,11 +3,10 @@ import { useEffect, useState } from "react";
 import {
   Menu, X, Home, Store, Mail, LogIn, UserPlus, LayoutDashboard, Wallet,
   ShoppingBag, User as UserIcon, LifeBuoy, LogOut, Briefcase, PackagePlus,
-  Banknote, ShieldCheck, Receipt, Users,
+  Banknote, Package,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/use-auth";
-import { useIsAdmin } from "@/hooks/use-is-admin";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -22,7 +21,9 @@ const PUBLIC_TOP: Item[] = [
 const AUTH_ITEMS: Item[] = [
   { to: "/dashboard", label: "Dashboard", Icon: LayoutDashboard },
   { to: "/dashboard/wallet", label: "Wallet", Icon: Wallet },
+  { to: "/products", label: "Products", Icon: Store },
   { to: "/dashboard/orders", label: "Orders", Icon: ShoppingBag },
+  { to: "/dashboard/catalog", label: "My Products", Icon: Package },
   { to: "/dashboard/settings", label: "Profile", Icon: UserIcon },
   { to: "/support", label: "Support", Icon: LifeBuoy },
 ];
@@ -33,15 +34,8 @@ const SELLER_ITEMS: Item[] = [
   { to: "/seller/withdrawals", label: "Withdraw Funds", Icon: Banknote },
 ];
 
-const ADMIN_ITEMS: Item[] = [
-  { to: "/admin", label: "Admin Dashboard", Icon: ShieldCheck },
-  { to: "/admin/transactions", label: "Transactions", Icon: Receipt },
-  { to: "/admin/users", label: "Users", Icon: Users },
-];
-
 export function HamburgerMenu() {
   const { user, loading } = useAuth();
-  const { isAdmin } = useIsAdmin();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [isSeller, setIsSeller] = useState(false);
@@ -130,12 +124,6 @@ export function HamburgerMenu() {
                 </>
               )}
 
-              {isAdmin && (
-                <>
-                  <Divider label="Admin" />
-                  <Section items={ADMIN_ITEMS} onClick={close} delay={11} />
-                </>
-              )}
             </>
           )}
         </nav>
