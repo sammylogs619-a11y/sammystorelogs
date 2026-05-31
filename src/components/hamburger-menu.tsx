@@ -124,12 +124,6 @@ export function HamburgerMenu() {
                 </>
               )}
 
-              {isAdmin && (
-                <>
-                  <Divider label="Admin" />
-                  <Section items={ADMIN_ITEMS} onClick={close} delay={11} />
-                </>
-              )}
             </>
           )}
         </nav>
