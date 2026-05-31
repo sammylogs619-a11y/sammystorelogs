@@ -36,7 +36,6 @@ const SELLER_ITEMS: Item[] = [
 
 export function HamburgerMenu() {
   const { user, loading } = useAuth();
-  const { isAdmin } = useIsAdmin();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [isSeller, setIsSeller] = useState(false);
