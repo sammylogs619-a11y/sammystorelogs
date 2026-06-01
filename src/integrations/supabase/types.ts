@@ -152,8 +152,13 @@ export type Database = {
         Row: {
           created_at: string
           delivered_credential: string
+          delivered_login_email: string | null
+          delivered_login_password: string | null
           delivered_notes: string | null
           delivered_password: string
+          delivered_recovery_email: string | null
+          delivered_recovery_password: string | null
+          delivered_twofa: string | null
           id: string
           login_id: string | null
           price: number
@@ -165,8 +170,13 @@ export type Database = {
         Insert: {
           created_at?: string
           delivered_credential: string
+          delivered_login_email?: string | null
+          delivered_login_password?: string | null
           delivered_notes?: string | null
           delivered_password: string
+          delivered_recovery_email?: string | null
+          delivered_recovery_password?: string | null
+          delivered_twofa?: string | null
           id?: string
           login_id?: string | null
           price: number
@@ -178,8 +188,13 @@ export type Database = {
         Update: {
           created_at?: string
           delivered_credential?: string
+          delivered_login_email?: string | null
+          delivered_login_password?: string | null
           delivered_notes?: string | null
           delivered_password?: string
+          delivered_recovery_email?: string | null
+          delivered_recovery_password?: string | null
+          delivered_twofa?: string | null
           id?: string
           login_id?: string | null
           price?: number
@@ -273,36 +288,51 @@ export type Database = {
       product_logins: {
         Row: {
           created_at: string
-          credential: string
+          credential: string | null
           id: string
+          login_email: string | null
+          login_password: string | null
           notes: string | null
-          password: string
+          password: string | null
           product_id: string
+          recovery_email: string | null
+          recovery_password: string | null
           sold_at: string | null
           sold_to: string | null
           status: string
+          twofa_code: string | null
         }
         Insert: {
           created_at?: string
-          credential: string
+          credential?: string | null
           id?: string
+          login_email?: string | null
+          login_password?: string | null
           notes?: string | null
-          password: string
+          password?: string | null
           product_id: string
+          recovery_email?: string | null
+          recovery_password?: string | null
           sold_at?: string | null
           sold_to?: string | null
           status?: string
+          twofa_code?: string | null
         }
         Update: {
           created_at?: string
-          credential?: string
+          credential?: string | null
           id?: string
+          login_email?: string | null
+          login_password?: string | null
           notes?: string | null
-          password?: string
+          password?: string | null
           product_id?: string
+          recovery_email?: string | null
+          recovery_password?: string | null
           sold_at?: string | null
           sold_to?: string | null
           status?: string
+          twofa_code?: string | null
         }
         Relationships: [
           {
@@ -776,8 +806,13 @@ export type Database = {
         Returns: {
           created_at: string
           delivered_credential: string
+          delivered_login_email: string | null
+          delivered_login_password: string | null
           delivered_notes: string | null
           delivered_password: string
+          delivered_recovery_email: string | null
+          delivered_recovery_password: string | null
+          delivered_twofa: string | null
           id: string
           login_id: string | null
           price: number
