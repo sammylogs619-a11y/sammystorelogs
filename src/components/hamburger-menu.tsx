@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import {
   Menu, X, Home, Store, Mail, LogIn, UserPlus, LayoutDashboard, Wallet,
   ShoppingBag, User as UserIcon, LifeBuoy, LogOut, Briefcase, PackagePlus,
-  Banknote, Package,
+  Banknote, Package, Phone,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { ForeignNumbersNavItem } from './foreign-numbers/ForeignNumbersNavItem';
 
 type Item = { to: string; label: string; Icon: typeof Home };
 
@@ -26,6 +27,7 @@ const AUTH_ITEMS: Item[] = [
   { to: "/dashboard/catalog", label: "My Products", Icon: Package },
   { to: "/dashboard/settings", label: "Profile", Icon: UserIcon },
   { to: "/support", label: "Support", Icon: LifeBuoy },
+  { to: "/my-numbers", label: "My Numbers", Icon: Phone },
 ];
 
 const SELLER_ITEMS: Item[] = [
